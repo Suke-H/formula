@@ -1,3 +1,2 @@
-*.png
-*.jpg
-dataset
+.ipynb_checkpoints
+3numbers

@@ -6,6 +6,7 @@ def setting(size, dpi=100.0):
 
     # サイズ指定（figsizeには出力サイズ/dpiの値を使用）
     figsize = (size[0]/dpi, size[1]/dpi)
+    print(figsize)
     fig = plt.figure(figsize=figsize, dpi=dpi)
     ax = plt.subplot(111)
 
@@ -19,24 +20,16 @@ def setting(size, dpi=100.0):
     ax.axes.xaxis.set_visible(False)
     ax.axes.yaxis.set_visible(False)
 
-def output_tex(text, path, 
-                size=(100,100), fontsize=15, x=0.5, y=0.44 # 描画プロパティ
-                ):
+if __name__ == '__main__':
 
-    # texの設定
     rc('text', usetex=True)
 
-    # matplotlibの設定
     setting(size=(100,100))
 
-    # text = r"$ 1 + 2 \times 3  $"
+    x, y = 0.5, 0.5
+    text = "$1 + 2 \times 3  $"
+    fontsize = 10
 
-    # 描画
     plt.text(x, y, text, horizontalalignment='center', fontsize=fontsize)
-    plt.savefig(path)
-    plt.close()
 
-if __name__ == "__main__":
-    text = r"$ 1 + 2 \div 3  $"
-    path = "test.png"
-    output_tex(text, path)
+    plt.savefig("test.png")
