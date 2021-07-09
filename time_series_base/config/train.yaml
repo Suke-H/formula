@@ -1,0 +1,33 @@
+# ハイパーパラメータ
+n_channels: 32
+n_hidden: 512
+lr: 0.001
+max_epochs: 100
+
+# Axプラグインを利用することを宣言
+# defaults:
+#   - hydra/sweeper: ax
+
+# @package _global_
+defaults:
+  - override /hydra/sweeper: ax
+
+# Axの設定
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 5  # 最大試行回数
+      experiment:
+        minimize: true  # 最適化の方向
+
+      # 最適化対象のハイパーパラメータ
+      params:
+        n\\_channels:
+          type: choice
+          values: [16, 32, 64]
+        n\\_hidden:
+          type: choice
+          values: [256, 512, 1024]
+        lr:
+          type: range
+          bounds: [0.0001, 0.001]

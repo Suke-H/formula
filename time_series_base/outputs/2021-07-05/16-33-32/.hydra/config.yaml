@@ -1,0 +1,4 @@
+n_channels: 32
+n_hidden: 512
+lr: 0.001
+max_epochs: 100
