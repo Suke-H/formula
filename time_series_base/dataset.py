@@ -115,6 +115,30 @@ def MNIST_load():
 
     return train_loader, val_loader, test_loader, test_x, test_y
 
+def MNIST_train_load():
+    
+    # 前処理用の関数
+    transform = ImageTransform()
+    img_transformed = transform
+
+    # データセット読み込み + 前処理
+    train_dataset = torchvision.datasets.MNIST(root='./data', 
+                        train=True, download=True, transform=img_transformed)
+    test_dataset = torchvision.datasets.MNIST(root='./data', 
+                    train=False, download=True, transform=img_transformed)
+
+    # numpyに変換
+    train_x = np.array([train_dataset[i][0].cpu().numpy() for i in range(60000)])
+    train_y = np.array([train_dataset[i][1] for i in range(60000)])
+    test_x = np.array([test_dataset[i][0].cpu().numpy() for i in range(10000)])
+    test_y = np.array([test_dataset[i][1] for i in range(10000)])
+
+    # 足し算データセット作成
+    group_train_x, group_train_y = make_summation_dataset(60000, 5, "train", train_x, train_y)
+    group_test_x, group_test_y = make_summation_dataset(10000, 5, "test", test_x, test_y)
+
+    return group_train_x, group_train_y
+
 if __name__ == "__main__":
     train_loader, val_loader, test_loader = MNIST_load()
     

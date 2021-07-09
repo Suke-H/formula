@@ -111,19 +111,17 @@ def display(terms, ys, t, output, epoch, out_path):
     plt.tight_layout()
 
     #保存
-    plt.savefig(out_path + "display2/"+str(epoch)+".png")
+    plt.savefig(out_path + "botu/"+str(epoch)+".png")
     plt.close()
 
 if __name__ == "__main__":
     train_loader, val_loader, test_loader, test_x, test_y = MNIST_load()
-    # model = DeepSets(patch_size=28, feature_n=2, output_n=46, pool_mode="sum")
     model = DeepSets(patch_size=28, feature_n=2, output_n=1, pool_mode="sum")
     optimizer = optim.Adam(model.parameters(), lr=10**(-3))
-    # criterion = nn.CrossEntropyLoss()
     criterion = nn.MSELoss()
     num_epochs = 1000
-    model_path = "models2/"
-    # train(model, train_loader, optimizer, criterion, num_epochs, model_path=model_path)
+    model_path = "botu/"
+    train(model, train_loader, optimizer, criterion, num_epochs, model_path=model_path)
 
     model_paths = sorted(glob.glob(model_path + "**"), key=numericalSort, reverse=True)
     print(model_paths[0])
